@@ -1,0 +1,75 @@
+﻿@using Read_Excel.Models
+@model IEnumerable<EmployeeModel>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <style type="text/css">
+        body {
+            font-family: Arial;
+            font-size: 10pt;
+        }
+
+        table {
+            border: 1px solid #ccc;
+            border-collapse: collapse;
+            background-color: #fff;
+        }
+
+            table th {
+                background-color: #B8DBFD;
+                color: #333;
+                font-weight: bold;
+            }
+
+            table th, table td {
+                padding: 5px;
+                border: 1px solid #ccc;
+            }
+
+            table, table table td {
+                border: 0px solid #ccc;
+            }
+    </style>
+</head>
+<body>
+    @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <input type="file" name="postedFile" />
+        <input type="submit" value="Import" />
+    }
+
+    
+  
+        <h4 style="color:red">@ViewBag.ErrorMessage</h4>
+    
+
+    @if (Model.Count() > 0)
+    {
+        <hr />
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                <th>Employee Id</th>
+                <th>Name</th>
+                <th>Address</th>
+                <th>EmailId</th>
+            </tr>
+            @foreach (EmployeeModel emp in Model)
+            {
+                <tr>
+                    <td>@emp.EmployeeId</td>
+                    <td>@emp.Name</td>
+                    <td>@emp.Address</td>
+                    <td>@emp.EmailId</td>
+                </tr>
+            }
+        </table>
+    }
+</body>
+</html>
